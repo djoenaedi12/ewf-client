@@ -38,9 +38,9 @@ public class UserController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getById(@PathVariable Long id) throws Exception {
-		User user = userService.findById(id).orElseThrow(() -> new Exception("User with id " + id + " not found"));
+	@RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
+	public ResponseEntity<?> getByUsername(@PathVariable String username) throws Exception {
+		User user = userService.findByUserName(username).orElseThrow(() -> new Exception("User with " + username + " not found"));
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
@@ -64,17 +64,17 @@ public class UserController {
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
-		User user = userService.findById(id).orElseThrow(() -> new Exception("User with id " + id + " not found"));
+	@RequestMapping(value = "/user/{username}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@PathVariable String username) throws Exception {
+		User user = userService.findByUserName(username).orElseThrow(() -> new Exception("User with " + username + " not found"));
 		userService.delete(user);
 		
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody UserRequest request) throws Exception {
-		User user = userService.findById(id).orElseThrow(() -> new Exception("User with id " + id + "not found"));
+	@RequestMapping(value = "/user/{username}", method = RequestMethod.PUT)
+	public ResponseEntity<?> update(@PathVariable String username, @Valid @RequestBody UserRequest request) throws Exception {
+		User user = userService.findByUserName(username).orElseThrow(() -> new Exception("User with " + username + "not found"));
 		Set<Role> roles = new HashSet<>();
 		for (String roleId : request.getRole()) {
 			Role role = roleService.findById(new Long(roleId))

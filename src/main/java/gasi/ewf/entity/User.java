@@ -1,5 +1,6 @@
 package gasi.ewf.entity;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,6 +39,13 @@ public class User {
     private String image;
     
     private boolean isLocked = false;
+    
+    
+    private Date birthDate;
+    
+    private String orgUnit;
+    
+    private String phone;
     
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -118,6 +126,30 @@ public class User {
 
 	public void setLocked(boolean isLocked) {
 		this.isLocked = isLocked;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getOrgUnit() {
+		return orgUnit;
+	}
+
+	public void setOrgUnit(String orgUnit) {
+		this.orgUnit = orgUnit;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 }

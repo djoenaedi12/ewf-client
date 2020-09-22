@@ -21,7 +21,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         final Map<String, Object> additionalInfo = new HashMap<>();
         UserPrincipal principal = (UserPrincipal) customUserDetailsService.loadUserByUsername(authentication.getName());
-        additionalInfo.put("email", principal.getEmail());
+        additionalInfo.put("username", principal.getUsername());
         additionalInfo.put("name", principal.getName());
         additionalInfo.put("image", principal.getImage());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
